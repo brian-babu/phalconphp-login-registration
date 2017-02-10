@@ -1,0 +1,33 @@
+<h2>Sign Up using this form</h2>
+<?php echo $this->tag->linkTo("login","Login User") ?>
+<?php echo $this->tag->form('signup/register') ?>
+<div class=”flash-message-css”>
+<?php if(isset($message))
+	echo "<div class='alert alert-error'>".$message."</div>";
+?>
+</div>
+	<p>
+		<label for="name">Name : </label>
+		<?php echo $this->tag->textField("name") ?>
+	</p>
+
+	<p>
+		<label for="name">E-Mail : </label>
+		<?php echo $this->tag->textField("email") ?>
+	</p>
+
+	<p>
+		<label for="password">Password : </label>
+		<?php echo $this->tag->passwordField("password") ?>
+	</p>
+
+	<p>
+		<label for="password">Retype Password : </label>
+		<?php echo $this->tag->passwordField("password2") ?>
+	</p>
+
+	<p>
+		<?php echo $this->tag->submitButton("Register") ?>
+	</p>
+
+</form>
