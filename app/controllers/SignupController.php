@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Mvc\Controller;
-use Phalcon\Validation\Validator\Email as EmailValidator;
 
 class SignupController extends Controller
 {
