@@ -1,6 +1,59 @@
-<?php
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<style>
+body{
+	font-family: "Lato";
+}
+.alert{
+	font-weight: bold;
+}
+</style>
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<body>
+    <div class="container">
+    <div class="col-md-12" align="center"><h1>PhalconPHP | Sign Up & Login</h1></div>
+    	<div class="col-md-3"></div>
+    	<div class="col-md-6">
 
-echo "<h1>Hello!</h1>";
+		<?php echo $this->tag->form(array('signup/register',"class"=>"form-signin")); ?>      
+		<?php echo $this->tag->linkTo(array("login","Login User", "class"=>"btn btn-sm btn-primary pull-right")) ?>
+		<h2 class="form-signin-heading">Sign Up User</h2>
+		<div class=”flash-message-css”>
+		<?php if(isset($message))
+			echo "<div class='alert alert-warning' role='alert'>".$message."</div>";
+		?>
+		</div>
+		<p>
+			<label for="name">Name : </label>
+			<?php echo $this->tag->textField(array("name","class"=>"form-control")) ?>
+		</p>
 
-echo $this->tag->linkTo("signup", "Sign Up Here!");
+		<p>
+			<label for="name">E-Mail : </label>
+			<?php echo $this->tag->textField(array("email","class"=>"form-control")) ?>
+		</p>
 
+		<p>
+			<label for="password">Password : </label>
+			<?php echo $this->tag->passwordField(array("password","class"=>"form-control")) ?>
+		</p>
+
+		<p>
+			<label for="password">Retype Password : </label>
+			<?php echo $this->tag->passwordField(array("password2","class"=>"form-control")) ?>
+		</p>
+
+		<p>
+			<?php echo $this->tag->submitButton(array("Register", "class"=>"btn btn-lg btn-primary btn-block")) ?>
+		</p>
+		<?php echo $this->tag->endForm()?>
+	</div>
+<div class="col-md-3"></div>
+</div>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

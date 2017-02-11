@@ -2,10 +2,17 @@
 
 use Phalcon\Mvc\Controller;
 
-class LoginController extends Controller
-{
- 
+class LoginController extends Controller {
+
+	
 	public function indexAction() {
+		$this->session->start();
+        $auth = $this->session->get('auth');
+        if($auth!=null){
+			echo $this->view->getPartial('login/index', ['message' => "Welcome ".$auth['name']." | <a href='".$this->url->get('logout')."'>Logout</a>"]);
+			exit;
+        }
+
 		if(isset($_POST['email'])){
 
 			if (!filter_var($this->request->getPost("email"), FILTER_VALIDATE_EMAIL)) {
@@ -15,26 +22,23 @@ class LoginController extends Controller
 				# check if email exists
 				$user = new Users();
 
-		        $user = Users::findFirst(array(
-		            "(email = :email:) AND password = :password:",
-		            'bind' => array('email' => $this->request->getPost('email'), 'password' => $this->request->getPost('password'))
+		        $userinfo = Users::findFirst(array(
+		            "(email = :email:)",
+		            'bind' => array('email' => $this->request->getPost('email'))
 		        ));
-		        if ($user != false) {
-			        /*$this->session->set('auth', array(
-			            'id' => $user->id,
-			            'name' => $user->name
-			        ));*/
-		            echo $this->view->getPartial('login/index', ['message' => "Welcome ".$user->name]);
-		            exit;
-		/*                return $this->dispatcher->forward(
-		                [
-		                    "controller" => "invoices",
-		                    "action"     => "index",
-		                ]
-		            );*/
-		        } else {
-					echo $this->view->getPartial('login/index', ['message' => "Invalid Username/Password"]);
-					exit;
+		        if($userinfo!=false){
+					if (password_verify($this->request->getPost("password"),$userinfo->password)) { // $user->password is the hash
+
+				        $this->session->set('auth', array(
+				            'id' => $userinfo->id,
+				            'name' => $userinfo->name,
+				            'email' => $userinfo->email
+				        ));
+				        $this->response->redirect("login/index");
+			        } else {
+						echo $this->view->getPartial('login/index', ['message' => "Invalid Username/Password"]);
+						exit;
+					}
 				}
 			}
 			echo $this->view->getPartial('login/index', ['message' => "Successful Login"]);

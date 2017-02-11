@@ -42,7 +42,7 @@ try {
     // Setup a base URI so that all generated URIs include the "phalcontutz" folder
     $di['url'] = function() {
         $url = new Url();
-        $url->setBaseUri(preg_replace('/public([\/\\\\])index.php$/', '', $_SERVER["PHP_SELF"]));
+        $url->setBaseUri("/phalcon_login/");
         return $url;
     };
 
